@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  checkout_date: 2013-05-05
+  checkout_verified: 2013-05-05
+  checkout_customer_name: MyString
+  checkout_customer_mail: MyString
+  checkout_customer_phone: MyString
+  checkout_customer_address: MyText
+  checkout_customer_note: MyText
+
+two:
+  checkout_date: 2013-05-05
+  checkout_verified: 2013-05-05
+  checkout_customer_name: MyString
+  checkout_customer_mail: MyString
+  checkout_customer_phone: MyString
+  checkout_customer_address: MyText
+  checkout_customer_note: MyText
