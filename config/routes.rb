@@ -1,8 +1,9 @@
 Kohvishop::Application.routes.draw do
 
 	match "/items" => "item#all"
-	match "/items/:category" => "item#by_category"
 	match "/item/:id" => "item#view"
+	match "/items/category/:category" => "item#by_category"
+	
 
 	match "/cart/:id/add/:quantity" => "cart#add"				# add item to cart with quantity
 	match "/cart/:id/remove" => "cart#remove"					# remove item from cart

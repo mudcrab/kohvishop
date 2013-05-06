@@ -1,7 +1,6 @@
 class ItemController < ApplicationController
 
 	def all
-		#test = {'something' => 'else', 'test' => [1, 2, 3]}
 		items = Array.new
 		Items.all.each do |item|
 			option = Options.find(item.id)
@@ -12,7 +11,13 @@ class ItemController < ApplicationController
 	end
 
 	def by_category
-
+		items = Array.new
+		Items.where("item_category = ?", params[:category]).each do |item|
+			option = Options.find(item.id)
+			item['option'] = option
+			items.push(item)
+		end
+		render :json => items
 	end
 
 	def view
