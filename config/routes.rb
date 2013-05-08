@@ -1,7 +1,7 @@
 Kohvishop::Application.routes.draw do
 
 	match "/items" => "item#all"
-	match "/item/:id" => "item#view"
+	match "/items/item/:id" => "item#view"
 	match "/items/category/:category" => "item#by_category"
 	
 
