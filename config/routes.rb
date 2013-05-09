@@ -7,7 +7,7 @@ Kohvishop::Application.routes.draw do
 
 	match "/cart/:id/add/:quantity" => "cart#add"				# add item to cart with quantity
 	match "/cart/:id/remove" => "cart#remove"					# remove item from cart
-	match "/cart/:id/co" => "cart#remove"						# cart checkout
+	match "/cart/:id/co" => "cart#checkout"						# cart checkout
 
 	match "/checkout/add" => "cart#add_customer", :via => :post	# add customer info before checkout # POST
 
