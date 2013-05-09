@@ -9,12 +9,20 @@ class CartController < ApplicationController
 		end
 	end
 
-	def remove
-
-	end
-
 	def checkout
+		items = Array.new
+		Carts.find(:all, :conditions => ['checkout_id = ?', params[:checkout_id]]).each do |cart|
+			option = Options.find(cart.option_id)
+			item_ = Items.find(option.item_id)
 
+			item = { 'quantity' => option.option_quantity, 'price' => option.option_price, 'total' => option.option_quantity * option.option_price }
+			item["name"] = item_.item_name
+			items.push(item)
+		end
+		@items = items
+		render :template => "invoice/invoice"
+		#render :json => {}
+		#render :json => items
 	end
 
 	def add_checkout
