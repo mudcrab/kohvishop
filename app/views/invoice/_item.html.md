@@ -1,1 +1,1 @@
-- <%= item["quantity"] %>x - <%= item["name"] %> <%= item["total"] %> €
+- <%= item["quantity"] %>x - <%= item["name"] %> <%= item["total"] %> &euro;

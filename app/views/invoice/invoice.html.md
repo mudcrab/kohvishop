@@ -1,5 +1,5 @@
-<%= render :partial => "invoice/header" %>
+<%= raw(render :partial => "invoice/header") %>
 These are your items
 
-<%= render :partial => "invoice/item", :collection => @items %>
-<%= render :partial => "invoice/footer" %>
+<%= raw(render :partial => "invoice/item", :collection => @items) %>
+<%= raw(render :partial => "invoice/footer") %>

@@ -1,0 +1,1 @@
+WickedPdf.config = { :exe_path => 'C:\Users\Jevgeni\apps\wkhtmltopdf\wkhtmltopdf.exe' }

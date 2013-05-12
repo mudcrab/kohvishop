@@ -20,8 +20,19 @@ class CartController < ApplicationController
 			items.push(item)
 		end
 		@items = items
-		render :template => "invoice/invoice"
-		#render :json => {}
+
+		#pdf = WickedPdf.new.pdf_from_string('<h1>Hello There!</h1>')
+
+		html = view_context.raw(render_to_string "invoice/invoice")
+		pdf = WickedPdf.new.pdf_from_string (html)
+
+		save_path = Rails.root.join('pdfs','filename.pdf')
+		File.open(save_path, 'wb') do |file|
+		  file << pdf
+		end
+		#render :template => "invoice/invoice"
+		
+		render :json => {}
 		#render :json => items
 	end
 
