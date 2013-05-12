@@ -20,10 +20,11 @@ class CartController < ApplicationController
 			items.push(item)
 		end
 		@items = items
+		@checkout = Checkouts.find(params[:checkout_id])
 
 		#pdf = WickedPdf.new.pdf_from_string('<h1>Hello There!</h1>')
 
-		html = view_context.raw(render_to_string "invoice/invoice")
+		html = render_to_string "invoice/invoice"
 		pdf = WickedPdf.new.pdf_from_string (html)
 
 		save_path = Rails.root.join('pdfs','filename.pdf')

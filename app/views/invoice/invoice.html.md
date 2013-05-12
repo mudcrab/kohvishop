@@ -1,3 +1,3 @@
-<%= render :partial => "invoice/header" %>
-<%= render :partial => "invoice/item", :collection => @items %>
-<%= render :partial => "invoice/footer" %>
+<%= raw ( render :partial => "invoice/header", :locals => { :checkout => @checkout } ) %>
+<%= raw ( render :partial => "invoice/item", :collection => @items ) %>
+<%= raw ( render :partial => "invoice/footer" ) %>
