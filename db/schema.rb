@@ -38,18 +38,11 @@ ActiveRecord::Schema.define(:version => 20130505210810) do
     t.string   "item_name"
     t.text     "item_description"
     t.boolean  "item_available"
+    t.integer  "item_parent_id"
+    t.integer  "item_code"
+    t.integer  "item_price"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
-  end
-
-  create_table "options", :force => true do |t|
-    t.integer  "option_price"
-    t.integer  "option_quantity"
-    t.string   "option_name"
-    t.text     "option_description"
-    t.integer  "item_id"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
   end
 
 end
