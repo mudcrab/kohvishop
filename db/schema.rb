@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(:version => 20130505210810) do
     t.text     "item_description"
     t.boolean  "item_available"
     t.integer  "item_parent_id"
-    t.integer  "item_code"
-    t.integer  "item_price"
+    t.string  "item_code"
+    t.float  "item_price"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
   end
