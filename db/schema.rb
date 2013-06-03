@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130505210810) do
+ActiveRecord::Schema.define(:version => 20130603130400) do
 
   create_table "carts", :force => true do |t|
     t.integer  "option_id"
@@ -38,11 +38,11 @@ ActiveRecord::Schema.define(:version => 20130505210810) do
     t.string   "item_name"
     t.text     "item_description"
     t.boolean  "item_available"
-    t.integer  "item_parent_id"
-    t.string  "item_code"
-    t.float  "item_price"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.integer  "item_parent_id"
+    t.integer  "item_price"
+    t.string   "item_code"
   end
 
 end
