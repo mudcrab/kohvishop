@@ -1,7 +1,14 @@
 class CartController < ApplicationController
 
+	after_filter :set_access_control_headers
+
+	def set_access_control_headers
+		headers['Access-Control-Allow-Origin'] = '*'
+		headers['Access-Control-Request-Method'] = '*'
+	end
+
 	def add
-		cart = Carts.new(:cart_quantity => params[:quantity], :checkout_id => params[:checkout_id], :option_id => params[:option_id])
+		cart = Carts.new(:cart_quantity => params[:quantity], :checkout_id => params[:checkout_id], :item_id => params[:item_id])
 		if cart.save
 			render :json => { 'id' => cart.id }
 		else
@@ -52,7 +59,7 @@ class CartController < ApplicationController
 		if checkout.save
 			render :json => { 'id' => checkout.id }
 		else
-			render :json => { 'id' => null }
+			render :json => { 'id' => nil }
 		end
 	end
 end
