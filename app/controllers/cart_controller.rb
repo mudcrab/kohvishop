@@ -38,8 +38,17 @@ class CartController < ApplicationController
 	end
 
 	def add_checkout
-		# TODO add validation to the model
-		checkout = Checkouts.new(params.slice(:checkout_customer_address, :checkout_customer_mail, :checkout_customer_name, :checkout_customer_note, :checkout_customer_phone, :checkout_date, :checkout_verified))
+		Time::DATE_FORMATS[:ymd] = "%Y-%m-%d"
+
+		checkout = Checkouts.new
+		checkout.checkout_customer_address = params[:checkout_customer_address]
+		checkout.checkout_customer_mail = params[:checkout_customer_mail]
+		checkout.checkout_customer_name = params[:checkout_customer_name]
+		checkout.checkout_customer_note = params[:checkout_customer_note]
+		checkout.checkout_customer_phone = params[:checkout_customer_phone]
+		checkout.checkout_date = Time.now.to_s(:ymd)
+		checkout.checkout_verified = nil
+
 		if checkout.save
 			render :json => { 'id' => checkout.id }
 		else
