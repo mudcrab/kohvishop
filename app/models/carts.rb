@@ -1,3 +1,3 @@
 class Carts < ActiveRecord::Base
-  attr_accessible :cart_quantity, :checkout_id, :option_id
+  attr_accessible :cart_quantity, :checkout_id, :item_id
 end
