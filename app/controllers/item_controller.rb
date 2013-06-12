@@ -10,6 +10,15 @@ class ItemController < ApplicationController
 	def all
 		items = Array.new
 		Items.where("item_parent_id = 0").each do |parent|
+			item_ = {
+				:id => parent.id,
+				:name => parent.item_name,
+				:description => parent.item_description,
+				:available => parent.item_available,
+				:category => parent.item_category,
+				:price => parent.item_price
+			}
+			items.push(item_)
 			Items.where("item_parent_id = ?", parent.id).each do |item|
 				if item.item_available?
 					item_ = {
@@ -30,6 +39,15 @@ class ItemController < ApplicationController
 	def by_category
 		items = Array.new
 		Items.where("item_category = ? and item_parent_id = 0", params[:category]).each do |parent|
+			item_ = {
+				:id => parent.id,
+				:name => parent.item_name,
+				:description => parent.item_description,
+				:available => parent.item_available,
+				:category => parent.item_category,
+				:price => parent.item_price
+			}
+			items.push(item_)
 			Items.where("item_parent_id = ?", parent.id).each do |item|
 				if item.item_available?
 					item_ = {
