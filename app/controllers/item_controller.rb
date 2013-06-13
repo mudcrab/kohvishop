@@ -17,7 +17,8 @@ class ItemController < ApplicationController
 				:available => parent.item_available,
 				:category => parent.item_category,
 				:price => parent.item_price,
-				:order => parent.item_order
+				:order => parent.item_order,
+				:quantity => parent.item_quantity
 			}
 			items.push(item_)
 			Items.where("item_parent_id = ?", parent.id).order("item_order ASC").each do |item|
@@ -29,7 +30,8 @@ class ItemController < ApplicationController
 						:available => item.item_available,
 						:category => item.item_category,
 						:price => parent.item_price.ceil + item.item_price.ceil,
-						:order => item.item_order
+						:order => item.item_order,
+						:quantity => item.item_quantity
 					}
 					items.push(item_)
 				end
