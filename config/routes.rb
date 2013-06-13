@@ -8,6 +8,8 @@ Kohvishop::Application.routes.draw do
 	match "/cart/add" => "cart#add_checkout", :via => :post	# add customer info before checkout # POST
 	match "/cart/co/:checkout_id" => "cart#checkout"						# cart checkout
 	match "/cart/item/add/:item_id/:quantity/:checkout_id" => "cart#add"				# add item to cart with quantity
+
+	match "/checkout/mail" => "cart#mailtest"
 	
 	
 

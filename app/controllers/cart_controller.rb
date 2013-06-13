@@ -44,6 +44,25 @@ class CartController < ApplicationController
 		#render :json => items
 	end
 
+	def mailtest
+		items = Array.new
+		@total = 0
+		Carts.find(:all, :conditions => ['checkout_id = ?', 2]).each do |cart|
+			item = Items.find(cart.item_id)
+			item_ = {
+				:name => item.item_name,
+				:code => item.item_code,
+				:quantity => cart.cart_quantity,
+				:price => item.item_price,
+				:total => item.item_price * cart.cart_quantity
+			}
+			@total += item_[:total]
+			items.push item_
+		end
+		@items = items
+		@checkout = Checkouts.find(2).attributes
+	end
+
 	def add_checkout
 		Time::DATE_FORMATS[:ymd] = "%Y-%m-%d"
 
@@ -54,6 +73,7 @@ class CartController < ApplicationController
 		checkout.checkout_customer_note = params[:checkout_customer_note]
 		checkout.checkout_customer_phone = params[:checkout_customer_phone]
 		checkout.checkout_date = Time.now.to_s(:ymd)
+		checkout.checkout_date_due = (Time.now + 7.days).to_s(:ymd)
 		checkout.checkout_verified = nil
 
 		if checkout.save
