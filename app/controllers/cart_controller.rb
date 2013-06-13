@@ -45,7 +45,7 @@ class CartController < ApplicationController
 	def mailtest
 		items = Array.new
 		@total = 0
-		Carts.find(:all, :conditions => ['checkout_id = ?', 2]).each do |cart|
+		Carts.find(:all, :conditions => ['checkout_id = ?', params[:checkout_id]]).each do |cart|
 			item = Items.find(cart.item_id)
 			item_ = {
 				:name => item.item_name,
@@ -58,7 +58,7 @@ class CartController < ApplicationController
 			items.push item_
 		end
 		@items = items
-		@checkout = Checkouts.find(2).attributes
+		@checkout = Checkouts.find(params[:checkout_id]).attributes
 	end
 
 	def add_checkout
