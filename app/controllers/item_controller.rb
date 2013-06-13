@@ -9,17 +9,18 @@ class ItemController < ApplicationController
 
 	def all
 		items = Array.new
-		Items.where("item_parent_id = 0").each do |parent|
+		Items.where("item_parent_id = 0").order("item_order ASC").each do |parent|
 			item_ = {
 				:id => parent.id,
 				:name => parent.item_name,
 				:description => parent.item_description,
 				:available => parent.item_available,
 				:category => parent.item_category,
-				:price => parent.item_price
+				:price => parent.item_price,
+				:order => parent.item_order
 			}
 			items.push(item_)
-			Items.where("item_parent_id = ?", parent.id).each do |item|
+			Items.where("item_parent_id = ?", parent.id).order("item_order ASC").each do |item|
 				if item.item_available?
 					item_ = {
 						:id => item.id,
@@ -27,7 +28,8 @@ class ItemController < ApplicationController
 						:description => item.item_description,
 						:available => item.item_available,
 						:category => item.item_category,
-						:price => parent.item_price.ceil + item.item_price.ceil
+						:price => parent.item_price.ceil + item.item_price.ceil,
+						:order => item.item_order
 					}
 					items.push(item_)
 				end
