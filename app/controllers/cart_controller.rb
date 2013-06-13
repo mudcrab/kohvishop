@@ -18,30 +18,28 @@ class CartController < ApplicationController
 
 	def checkout
 		items = Array.new
+		@total = 0
 		Carts.find(:all, :conditions => ['checkout_id = ?', params[:checkout_id]]).each do |cart|
-			option = Options.find(cart.option_id)
-			item_ = Items.find(option.item_id)
-
-			item = { 'quantity' => option.option_quantity, 'price' => option.option_price, 'total' => option.option_quantity * option.option_price }
-			item["name"] = item_.item_name
-			items.push(item)
+			item = Items.find(cart.item_id)
+			item_ = {
+				:name => item.item_name,
+				:code => item.item_code,
+				:quantity => cart.cart_quantity,
+				:price => item.item_price,
+				:total => item.item_price * cart.cart_quantity
+			}
+			@total += item_[:total]
+			items.push item_
 		end
 		@items = items
-		@checkout = Checkouts.find(params[:checkout_id])
+		@checkout = Checkouts.find(params[:checkout_id]).attributes
 
-		#pdf = WickedPdf.new.pdf_from_string('<h1>Hello There!</h1>')
-
-		html = render_to_string "invoice/invoice"
-		pdf = WickedPdf.new.pdf_from_string (html)
-
+		pdf = WickedPdf.new.pdf_from_string (render_to_string('cart/mailtest'))
 		save_path = Rails.root.join('pdfs','filename.pdf')
 		File.open(save_path, 'wb') do |file|
-		  file << pdf
+		   file << pdf
 		end
-		#render :template => "invoice/invoice"
-		
-		render :json => {}
-		#render :json => items
+		render :nothing => true
 	end
 
 	def mailtest
