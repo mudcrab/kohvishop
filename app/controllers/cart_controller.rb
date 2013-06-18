@@ -78,7 +78,7 @@ class CartController < ApplicationController
 		checkout.checkout_customer_phone = params[:checkout_customer_phone]
 		checkout.checkout_date = Time.now.to_s(:ymd)
 		checkout.checkout_date_due = (Time.now + 7.days).to_s(:ymd)
-		checkout.checkout_verified = nil
+		checkout.checkout_verified = 0
 
 		if checkout.save
 			render :json => { 'id' => checkout.id }
