@@ -65,8 +65,8 @@ Kohvishop::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  #config.accountant_mail = "majutus@schilling.ee"
-  config.accountant_mail = "ander@schilling.ee"
+  config.accountant_mail = "majutus@schilling.ee"
+  #config.accountant_mail = "ander@schilling.ee"
   config.invoice_prefix = "M13-"
 
 end
