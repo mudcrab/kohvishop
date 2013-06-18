@@ -9,10 +9,6 @@ Kohvishop::Application.routes.draw do
 	match "/cart/co/:checkout_id" => "cart#checkout"						# cart checkout
 	match "/cart/item/add/:item_id/:quantity/:checkout_id" => "cart#add"				# add item to cart with quantity
 
-	match "/checkout/mail/:checkout_id" => "cart#mailtest"
-	
-	
-
 	root :to => "item#all"
 
 end

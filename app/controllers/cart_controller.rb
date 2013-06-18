@@ -20,36 +20,6 @@ class CartController < ApplicationController
 	def checkout
 		items = Array.new
 		@total = 0
-		Carts.find(:all, :conditions => ['checkout_id = ?', params[:checkout_id]]).each do |cart|
-			item = Items.find(cart.item_id)
-			item_ = {
-				:name => item.item_name,
-				:code => item.item_code,
-				:quantity => cart.cart_quantity,
-				:price => item.item_price,
-				:total => item.item_price * cart.cart_quantity
-			}
-
-			@total += item_[:total]
-			items.push item_
-		end
-		@items = items
-		co = Checkouts.find(params[:checkout_id])
-		@checkout = co.attributes
-
-        email = {
-        	:to => co.checkout_customer_mail,
-        	:from => "jevgeni@pitfire.eu",
-        	:body => render_to_string('cart/mailtest'),
-        	:subject => "Arve #{Rails.configuration.invoice_prefix}#{co.id}"
-        }
-		ShopMailer.welcome_email(email).deliver
-		render :json => []
-	end
-
-	def mailtest
-		items = Array.new
-		@total = 0
 		@total_net = 0
 		@total_tax = 0
 		Carts.find(:all, :conditions => ['checkout_id = ?', params[:checkout_id]]).each do |cart|
@@ -68,7 +38,16 @@ class CartController < ApplicationController
 			items.push item_
 		end
 		@items = items
-		@checkout = Checkouts.find(params[:checkout_id]).attributes
+		co = Checkouts.find(params[:checkout_id])
+		@checkout = co.attributes
+
+        email = {
+        	:to => co.checkout_customer_mail,
+        	:body => render_to_string('cart/mailtest'),
+        	:subject => "Arve #{Rails.configuration.invoice_prefix}#{co.id}"
+        }
+		ShopMailer.welcome_email(email).deliver
+		render :json => []
 	end
 
 	def add_checkout
