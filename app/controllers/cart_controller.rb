@@ -1,3 +1,4 @@
+# encoding: utf-8
 class CartController < ApplicationController
 
 	after_filter :set_access_control_headers
@@ -33,14 +34,17 @@ class CartController < ApplicationController
 			items.push item_
 		end
 		@items = items
-		@checkout = Checkouts.find(params[:checkout_id]).attributes
+		co = Checkouts.find(params[:checkout_id])
+		@checkout = co.attributes
 
-		pdf = WickedPdf.new.pdf_from_string (render_to_string('cart/mailtest'))
-		save_path = Rails.root.join('pdfs','filename.pdf')
-		File.open(save_path, 'wb') do |file|
-		   file << pdf
-		end
-		render :nothing => true
+        email = {
+        	:to => co.checkout_customer_mail,
+        	:from => "jevgeni@pitfire.eu",
+        	:body => render_to_string('cart/mailtest'),
+        	:subject => "Arve #{Rails.configuration.invoice_prefix}#{co.id}"
+        }
+		ShopMailer.welcome_email(email).deliver
+		render :json => []
 	end
 
 	def mailtest
