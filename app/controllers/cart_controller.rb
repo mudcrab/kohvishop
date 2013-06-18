@@ -18,6 +18,7 @@ class CartController < ApplicationController
 	end
 
 	def checkout
+		Kernel.sleep(0.2)
 		items = Array.new
 		@total = 0
 		@total_net = 0
