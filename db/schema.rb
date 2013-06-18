@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130618132347) do
+ActiveRecord::Schema.define(:version => 20130618163939) do
 
   create_table "carts", :force => true do |t|
     t.integer  "item_id"
@@ -23,14 +23,14 @@ ActiveRecord::Schema.define(:version => 20130618132347) do
 
   create_table "checkouts", :force => true do |t|
     t.date     "checkout_date"
-    t.date     "checkout_verified"
+    t.integer  "checkout_verified",         :default => 0
     t.string   "checkout_customer_name"
     t.string   "checkout_customer_mail"
     t.string   "checkout_customer_phone"
     t.text     "checkout_customer_address"
     t.text     "checkout_customer_note"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.date     "checkout_date_due"
   end
 
