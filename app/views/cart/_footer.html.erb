@@ -7,8 +7,8 @@
 			<strong>Summa kokku:</strong>
 		</td>
 		<td align="right" width="100">
-			<%= number_with_precision( totalprice, :precision => 2 ) %> €<br />
-			<%= number_with_precision( totaltax, :precision => 2 ) %> €<br />
+			<%= number_with_precision( total_net, :precision => 2 ) %> €<br />
+			<%= number_with_precision( total_tax, :precision => 2 ) %> €<br />
 			<strong><%= number_with_precision( total, :precision => 2 ) %> €</strong>
 		</td>
 	</tr>

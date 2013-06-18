@@ -3,7 +3,7 @@
 	<td><%= item[:name] %></td>
 	<td><%= item[:code] %></td>
 	<td align="center"><%= item[:quantity] %></td>
+	<td align="right"><%= number_with_precision( item[:price_net], :precision => 2 ) %> €</td>
+	<td align="right"><%= number_with_precision( item[:price_tax], :precision => 2 ) %> €</td>
 	<td align="right"><%= number_with_precision( item[:price], :precision => 2 ) %> €</td>
-	<td align="right"><%= number_with_precision( item[:tax],   :precision => 2 ) %> €</td>
-	<td align="right"><%= number_with_precision( item[:total], :precision => 2 ) %> €</td>
 </tr>
