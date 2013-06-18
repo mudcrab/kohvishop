@@ -20,7 +20,7 @@
 			<%= checkout["checkout_customer_address"] %>
 		</td>
 		<td align="right">
-			<strong>Arve nr: <big><%= checkout["id"] %></big></strong>
+			<strong>Arve nr: <big><%= Rails.configuration.invoice_prefix + checkout["id"].to_s %></big></strong>
 			<br>
 			<br>
 			<strong>Kuupäev</strong> <%= checkout["checkout_date"] %>

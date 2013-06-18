@@ -34,4 +34,9 @@ Kohvishop::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.accountant_mail = "majutus@schilling.ee"
+  config.invoice_prefix = "M13-"
+  config.tax_percent = 20
+
 end
