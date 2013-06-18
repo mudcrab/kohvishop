@@ -1,5 +1,7 @@
 class ItemController < ApplicationController
 
+	include ApplicationHelper
+
 	after_filter :set_access_control_headers
 
 	def set_access_control_headers
@@ -9,7 +11,7 @@ class ItemController < ApplicationController
 
 	def all
 		items = Array.new
-		Items.where("item_parent_id = 0 and item_quantity > 0").order("item_order ASC").each do |parent|
+		Items.where("item_parent_id = 0").order("item_order ASC").each do |parent|
 			item_ = {
 				:id => parent.id,
 				:name => parent.item_name,
@@ -18,10 +20,10 @@ class ItemController < ApplicationController
 				:category => parent.item_category,
 				:price => parent.item_price,
 				:order => parent.item_order,
-				:quantity => parent.item_quantity
+				:quantity => parent.item_quantity - get_item_quantity_sold( parent.id )
 			}
 			items.push(item_)
-			Items.where("item_parent_id = ? and item_quantity > 0", parent.id).order("item_order ASC").each do |item|
+			Items.where("item_parent_id = ?", parent.id).order("item_order ASC").each do |item|
 				if item.item_available?
 					item_ = {
 						:id => item.id,
@@ -29,9 +31,9 @@ class ItemController < ApplicationController
 						:description => item.item_description,
 						:available => item.item_available,
 						:category => item.item_category,
-						:price => parent.item_price.ceil + item.item_price.ceil,
+						:price => parent.item_price + item.item_price,
 						:order => item.item_order,
-						:quantity => item.item_quantity
+						:quantity => item.item_quantity - get_item_quantity_sold( item.id )
 					}
 					items.push(item_)
 				end
@@ -42,7 +44,7 @@ class ItemController < ApplicationController
 
 	def by_category
 		items = Array.new
-		Items.where("item_category = ? and item_parent_id = 0 and item_quantity > 0", params[:category]).each do |parent|
+		Items.where("item_category = ? and item_parent_id = 0", params[:category]).each do |parent|
 			item_ = {
 				:id => parent.id,
 				:name => parent.item_name,
@@ -52,7 +54,7 @@ class ItemController < ApplicationController
 				:price => parent.item_price
 			}
 			items.push(item_)
-			Items.where("item_parent_id = ? and item_quantity > 0", parent.id).each do |item|
+			Items.where("item_parent_id = ?", parent.id).each do |item|
 				if item.item_available?
 					item_ = {
 						:id => item.id,
@@ -60,7 +62,7 @@ class ItemController < ApplicationController
 						:description => item.item_description,
 						:available => item.item_available,
 						:category => item.item_category,
-						:price => parent.item_price.ceil + item.item_price.ceil
+						:price => parent.item_price + item.item_price
 					}
 					items.push(item_)
 				end
@@ -80,12 +82,12 @@ class ItemController < ApplicationController
 				:description => item.item_description,
 				:available => item.item_available,
 				:category => item.item_category,
-				:price => item.item_price.ceil,
-				:quantity => item.item_quantity
+				:price => item.item_price,
+				:quantity => item.item_quantity - get_item_quantity_sold( item.id )
 			}
 			if item.item_parent_id > 0
 				parent = Items.find(item.item_parent_id)
-				item_[:price] = parent.item_price.ceil + item.item_price.ceil
+				item_[:price] = parent.item_price + item.item_price
 			end
 		end
 		render :json => item_

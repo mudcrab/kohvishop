@@ -31,8 +31,6 @@ class CartController < ApplicationController
 
 			@total += item_[:total]
 			items.push item_
-			item.item_quantity -= cart.cart_quantity
-			item.save
 		end
 		@items = items
 		@checkout = Checkouts.find(params[:checkout_id]).attributes
