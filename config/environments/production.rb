@@ -67,6 +67,5 @@ Kohvishop::Application.configure do
 
   config.accountant_mail = "majutus@schilling.ee"
   config.invoice_prefix = "M13-"
-  config.tax_percent = 20
 
 end
