@@ -28,8 +28,11 @@ class CartController < ApplicationController
 				:price => item.item_price,
 				:total => item.item_price * cart.cart_quantity
 			}
+
 			@total += item_[:total]
 			items.push item_
+			item.item_quantity -= cart.cart_quantity
+			item.save
 		end
 		@items = items
 		@checkout = Checkouts.find(params[:checkout_id]).attributes

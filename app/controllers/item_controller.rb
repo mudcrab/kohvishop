@@ -37,7 +37,6 @@ class ItemController < ApplicationController
 				end
 			end
 		end
-		items.push(:count => items.size)
 		render :json => items
 	end
 
@@ -81,7 +80,8 @@ class ItemController < ApplicationController
 				:description => item.item_description,
 				:available => item.item_available,
 				:category => item.item_category,
-				:price => item.item_price.ceil
+				:price => item.item_price.ceil,
+				:quantity => item.item_quantity
 			}
 			if item.item_parent_id > 0
 				parent = Items.find(item.item_parent_id)
