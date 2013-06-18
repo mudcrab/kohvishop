@@ -44,6 +44,8 @@ class CartController < ApplicationController
 
 	def mailtest
 		items = Array.new
+		@totalprice = 0
+		@totaltax = 0
 		@total = 0
 		Carts.find(:all, :conditions => ['checkout_id = ?', params[:checkout_id]]).each do |cart|
 			item = Items.find(cart.item_id)
@@ -52,9 +54,12 @@ class CartController < ApplicationController
 				:code => item.item_code,
 				:quantity => cart.cart_quantity,
 				:price => item.item_price,
-				:total => item.item_price * cart.cart_quantity
+				:tax => item.item_price * Rails.configuration.tax_percent / 100,
 			}
-			@total += item_[:total]
+			item_[:total] = item_[:price] + item_[:tax]
+			@totalprice += item_[:price] * item_[:quantity]
+			@totaltax += item_[:tax] * item_[:quantity]
+			@total += item_[:total] * item_[:quantity]
 			items.push item_
 		end
 		@items = items

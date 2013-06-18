@@ -1,7 +1,16 @@
+</table>
+<table width="700" cellpadding="3" cellspacing="1">
 	<tr>
-		<td colspan="3"></td>
-		<td colspan="2"><strong>Summa kokku:</strong></td>
-		<td align="center"><strong><%= total %> €</strong></td>
+		<td align="right">
+			Summa:<br />
+			Käibemaks:<br />
+			<strong>Summa kokku:</strong>
+		</td>
+		<td align="right" width="100">
+			<%= number_with_precision( totalprice, :precision => 2 ) %> €<br />
+			<%= number_with_precision( totaltax, :precision => 2 ) %> €<br />
+			<strong><%= number_with_precision( total, :precision => 2 ) %> €</strong>
+		</td>
 	</tr>
 </table>
 
@@ -13,20 +22,20 @@
 
 <table width="700">
 	<tr>
-		<td>
+		<td width="33%">
 			MTÜ Huumus<br>
 			Kruusamäe 9<br>
 			50304 Tartu
 		</td>
-		<td align="center">
+		<td align="center" width="33%">
 			Reg. nr: 80284098<br>
 			Telefon: +372 52 84 627<br>
-			E-post: snafu@kohviradio.com
+			E-post: tonis@schilling.ee
 		</td>
-		<td align="right">
+		<td align="right" width="33%">
 			a/a: 221046129449<br>
 			Pank: Swedbank<br>
-			Kood: 767
+			KMKR: EE101582799
 		</td>
 	</tr>
 </table>

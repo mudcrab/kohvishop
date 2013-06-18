@@ -20,7 +20,7 @@
 			<%= checkout["checkout_customer_address"] %>
 		</td>
 		<td align="right">
-			<strong>Arve nr: <big><%= Rails.configuration.invoice_prefix + checkout["id"].to_s %></big></strong>
+			<strong>ARVE nr: <big><%= Rails.configuration.invoice_prefix + checkout["id"].to_s %></big></strong>
 			<br>
 			<br>
 			<strong>Kuupäev</strong> <%= checkout["checkout_date"] %>
@@ -37,10 +37,11 @@
 <br>
 <table width="700" border="1" cellpadding="3" cellspacing="1">
 	<tr>
-		<th align="center">jrk. nr.</th>
-		<th>kauba nimetus</th>
-		<th>kood</th>
-		<th align="center">kogus</th>
-		<th align="center">hind</th>
-		<th align="center">kokku</th>
+		<th align="center">Jrk.nr.</th>
+		<th>Kauba nimetus</th>
+		<th>Kood</th>
+		<th align="center">Kogus</th>
+		<th align="center">Hind</th>
+		<th align="center">Km <%= Rails.configuration.tax_percent %>%</th>
+		<th align="center">Kokku</th>
 	</tr>
